@@ -51,5 +51,7 @@ module.exports.datastores = {
     // url: "mongodb://localhost:27017/e-commerce",
     url:
       "mongodb://e-commerce:e-commerce@cluster0-shard-00-00.gm1nd.mongodb.net:27017,cluster0-shard-00-01.gm1nd.mongodb.net:27017,cluster0-shard-00-02.gm1nd.mongodb.net:27017/e-commerce?ssl=true&replicaSet=atlas-1f0of8-shard-0&authSource=admin&retryWrites=true&w=majority",
+
+    ssl: true,
   },
 };
