@@ -18,6 +18,7 @@ module.exports.http = {
    * https://sailsjs.com/documentation/concepts/middleware                     *
    *                                                                           *
    ****************************************************************************/
+  trustProxy: true,
 
   middleware: {
     /***************************************************************************
