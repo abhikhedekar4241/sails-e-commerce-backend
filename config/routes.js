@@ -120,4 +120,27 @@ module.exports.routes = {
     action: "deleteItem",
   },
   //************* CategoryItemController end *************
+
+  //************* OffersController start *************
+  "GET /api/v1/offers/list": {
+    controller: "OffersController",
+    action: "getAllOffers",
+  },
+  "GET /api/v1/offers/:offerId": {
+    controller: "OffersController",
+    action: "getOffer",
+  },
+  "POST /api/v1/offers/add": {
+    controller: "OffersController",
+    action: "addOffer",
+  },
+  "PUT /api/v1/offers/:offerId": {
+    controller: "OffersController",
+    action: "updateOffer",
+  },
+  "DELETE /api/v1/offers/:offerId": {
+    controller: "OffersController",
+    action: "deleteOffer",
+  },
+  //************* OffersController end *************
 };

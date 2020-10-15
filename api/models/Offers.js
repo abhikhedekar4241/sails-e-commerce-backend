@@ -1,5 +1,5 @@
 /**
- * MasterCategory.js
+ * Offers.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -7,20 +7,19 @@
 
 module.exports = {
   attributes: {
-    masterCategoryName: {
+    offerName: {
       type: "string",
       required: true,
     },
-    masterCategoryId: {
-      type: "string",
-    },
-    thumbnail: {
-      type: "string",
-      defaultsTo: "https://i.ytimg.com/vi/2QvOxa_7wEw/maxresdefault.jpg",
+    offerId: { type: "string" },
+    items: {
+      type: "json",
+      columnType: "Array",
+      defaultsTo: [],
     },
   },
-  beforeCreate: function (masterCategory, cb) {
-    masterCategory.masterCategoryId = sails.config.globals.uniqid.time();
+  beforeCreate: function (offer, cb) {
+    offer.offerId = sails.config.globals.uniqid.time();
     return cb();
   },
 
