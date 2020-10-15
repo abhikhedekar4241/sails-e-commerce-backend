@@ -32,21 +32,21 @@ module.exports.http = {
       "cookieParser",
       "session",
       "bodyParser",
-      "myRequestLogger",
+      // "myRequestLogger",
       "compress",
       "poweredBy",
       "router",
       "www",
       "favicon",
     ],
-    myRequestLogger: function (req, res, next) {
-      AuditLogService.auditLog(req, (err) => {
-        if (err) {
-          Logger.error(err, "http.myRequestLogger : audit logging failed");
-        }
-      });
-      next();
-    },
+    // myRequestLogger: function (req, res, next) {
+    //   AuditLogService.auditLog(req, (err) => {
+    //     if (err) {
+    //       Logger.error(err, "http.myRequestLogger : audit logging failed");
+    //     }
+    //   });
+    //   next();
+    // },
 
     /***************************************************************************
      *                                                                          *
