@@ -24,8 +24,9 @@ module.exports = {
     try {
       let userData = req.body;
       Logger.info(userData);
-      var mobile = req.body.mobile;
-      let checkDuplicate = await User.find({ mobile: mobile });
+
+      let checkDuplicate = await User.find({ mobile: userData.mobile });
+
       if (checkDuplicate.length === 0) {
         var createdUser = await User.create(userData).fetch();
         Logger.info(createdUser);
@@ -42,7 +43,7 @@ module.exports = {
           throw new Error("User signup unsuccessful.");
         }
       } else {
-        throw new Error("Mobile already registered.");
+        throw new Error("Mobile already registered");
       }
     } catch (err) {
       Logger.error(
@@ -60,7 +61,7 @@ module.exports = {
   login: async function (req, res) {
     try {
       var loginData = req.body;
-      let registrationToken = req.body.registrationToken || "";
+      let notificationToken = req.body.notificationToken || "";
 
       var user = await User.findOne({
         mobile: loginData.mobile,
@@ -84,7 +85,7 @@ module.exports = {
           req.session.loggedInUser = user;
           req.session.authenticated = true;
           await User.updateOne({ userId: user.userId }).set({
-            registrationToken: registrationToken,
+            notificationToken: notificationToken,
           });
           return res.json({
             status: 200,
@@ -119,7 +120,7 @@ module.exports = {
     let userData = req.body;
     Logger.info(userData);
     try {
-      let userId = req.params.userId;
+      let userId = req.user.userId;
 
       if (userId && userId !== "") {
         let updatedUser = await User.updateOne({
@@ -349,11 +350,21 @@ module.exports = {
       let user = await User.findOne(userData);
       let cartItems = user.cartItems;
       Logger.info(cartItems);
-      if (cartItems) {
+
+      let cartItemIds = [];
+      for (let i = 0; i < cartItems.length; i++) {
+        cartItemIds.push(cartItems[i].itemId);
+      }
+      Logger.info(cartItemIds);
+
+      let cartItemsData = await Item.find({ itemId: cartItemIds });
+
+      Logger.info(cartItemsData);
+      if (cartItemsData) {
         return res.status(200).json({
           status: 200,
           message: "Cart Items fetched Successfully.",
-          data: cartItems,
+          data: cartItemsData,
         });
       } else {
         throw new Error("Cart Items not fetched");
@@ -385,6 +396,44 @@ module.exports = {
       let updatedUser = await User.updateOne({
         userId: userId,
       }).set(user);
+
+      let updatedCart = updatedUser.cartItems;
+      Logger.info(updatedCart);
+      if (updatedCart) {
+        return res.status(200).json({
+          status: 200,
+          message: "Cart Items updated Successfully.",
+          data: updatedCart,
+        });
+      } else {
+        throw new Error("Cart Items not updated");
+      }
+    } catch (err) {
+      Logger.error(
+        "Error in api: UserController:updateCart, name: " +
+          err.name +
+          ", code: " +
+          err.code
+      );
+      return res.status(403).send({
+        message: err.message,
+      });
+    }
+  },
+
+  addToCart: async function (req, res) {
+    Logger.verbose("UserController:updateCart called");
+    try {
+      let userId = req.user.userId;
+      item = req.body;
+      Logger.info(item);
+
+      let user = await User.findOne({ userId: userId });
+      user.cartItems.push(item);
+
+      let updatedUser = await User.updateOne({
+        userId: userId,
+      }).set({ cartItems: user.cartItems });
 
       let updatedCart = updatedUser.cartItems;
       Logger.info(updatedCart);

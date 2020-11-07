@@ -7,12 +7,12 @@
 
 module.exports = {
   getCategories: async function (req, res) {
-    Logger.verbose("ProductCategoryController:getCategories called");
+    Logger.verbose("CategoryController:getCategories called");
     let masterCategoryId = req.params.masterCategoryId;
     try {
       let categoryData = { masterCategoryId: masterCategoryId };
       Logger.info(categoryData);
-      let categories = await ProductCategory.find(categoryData);
+      let categories = await Category.find(categoryData);
       Logger.info(categories);
       if (categories) {
         return res.status(200).json({
@@ -25,7 +25,7 @@ module.exports = {
       }
     } catch (err) {
       Logger.error(
-        "Error in api: ProductCategoryController:getCategories, name: " +
+        "Error in api: CategoryController:getCategories, name: " +
           err.name +
           ", code: " +
           err.code
@@ -37,11 +37,11 @@ module.exports = {
   },
 
   addCategory: async function (req, res) {
-    Logger.verbose("ProductCategoryController:addCategory called");
+    Logger.verbose("CategoryController:addCategory called");
     try {
       let categoryData = req.body;
       Logger.info(categoryData);
-      let addedCategory = await ProductCategory.create(categoryData).fetch();
+      let addedCategory = await Category.create(categoryData).fetch();
       Logger.info(addedCategory);
       if (addedCategory) {
         return res.status(200).json({
@@ -54,7 +54,7 @@ module.exports = {
       }
     } catch (err) {
       Logger.error(
-        "Error in api: ProductCategoryController:addCategory, name: " +
+        "Error in api: CategoryController:addCategory, name: " +
           err.name +
           ", code: " +
           err.code
@@ -66,7 +66,7 @@ module.exports = {
   },
 
   updateCategory: async function (req, res) {
-    Logger.verbose("ProductCategoryController:updateCategory called");
+    Logger.verbose("CategoryController:updateCategory called");
     try {
       let categoryId = req.params.categoryId;
 
@@ -78,7 +78,7 @@ module.exports = {
         throw new Error("categoryId field is required");
       }
       Logger.info(categoryData);
-      let updatedCategory = await ProductCategory.updateOne({
+      let updatedCategory = await Category.updateOne({
         categoryId: categoryId,
       }).set(categoryData);
 
@@ -94,7 +94,7 @@ module.exports = {
       }
     } catch (err) {
       Logger.error(
-        "Error in api: ProductCategoryController:updateCategory, name: " +
+        "Error in api: CategoryController:updateCategory, name: " +
           err.name +
           ", code: " +
           err.code
@@ -106,14 +106,14 @@ module.exports = {
   },
 
   deleteCategory: async function (req, res) {
-    Logger.verbose("ProductCategoryController:deleteCategory called");
+    Logger.verbose("CategoryController:deleteCategory called");
     try {
       let categoryId = req.params.categoryId;
       let categoryData = { categoryId: categoryId };
 
       Logger.info(categoryData);
-      let deletedCategory = await ProductCategory.destroyOne(categoryData);
-      let deleteItems = await CategoryItem.destroy(categoryData).fetch();
+      let deletedCategory = await Category.destroyOne(categoryData);
+      let deleteItems = await Item.destroy(categoryData).fetch();
       Logger.info(deletedCategory);
       Logger.info(deleteItems);
       if (deleteItems) {
@@ -130,7 +130,7 @@ module.exports = {
       }
     } catch (err) {
       Logger.error(
-        "Error in api: ProductCategoryController:deleteCategory, name: " +
+        "Error in api: CategoryController:deleteCategory, name: " +
           err.name +
           ", code: " +
           err.code

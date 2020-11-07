@@ -7,12 +7,12 @@
 
 module.exports = {
   getItems: async function (req, res) {
-    Logger.verbose("CategoryItemController:getItems called");
+    Logger.verbose("ItemController:getItems called");
     try {
       let categoryId = req.params.categoryId;
       let itemData = { categoryId: categoryId };
       Logger.info(itemData);
-      let items = await CategoryItem.find(itemData);
+      let items = await Item.find(itemData);
       Logger.info(items);
       if (items) {
         return res.status(200).json({
@@ -25,7 +25,7 @@ module.exports = {
       }
     } catch (err) {
       Logger.error(
-        "Error in api: CategoryItemController:getItems, name: " +
+        "Error in api: ItemController:getItems, name: " +
           err.name +
           ", code: " +
           err.code
@@ -37,12 +37,12 @@ module.exports = {
   },
 
   getItem: async function (req, res) {
-    Logger.verbose("CategoryItemController:getItem called");
+    Logger.verbose("ItemController:getItem called");
     try {
       let itemId = req.params.itemId;
       let itemData = { itemId: itemId };
       Logger.info(itemData);
-      let items = await CategoryItem.findOne(itemData);
+      let items = await Item.findOne(itemData);
       Logger.info(items);
       if (items) {
         return res.status(200).json({
@@ -55,7 +55,7 @@ module.exports = {
       }
     } catch (err) {
       Logger.error(
-        "Error in api: CategoryItemController:getItem, name: " +
+        "Error in api: ItemController:getItem, name: " +
           err.name +
           ", code: " +
           err.code
@@ -67,11 +67,11 @@ module.exports = {
   },
 
   addItem: async function (req, res) {
-    Logger.verbose("CategoryItemController:addItem called");
+    Logger.verbose("ItemController:addItem called");
     try {
       let itemData = req.body;
       Logger.info(itemData);
-      var addedItem = await CategoryItem.create(itemData).fetch();
+      var addedItem = await Item.create(itemData).fetch();
       Logger.info(addedItem);
       if (addedItem) {
         return res.status(200).json({
@@ -84,7 +84,7 @@ module.exports = {
       }
     } catch (err) {
       Logger.error(
-        "Error in api: CategoryItemController:addItem, name: " +
+        "Error in api: ItemController:addItem, name: " +
           err.name +
           ", code: " +
           err.code
@@ -96,7 +96,7 @@ module.exports = {
   },
 
   updateItem: async function (req, res) {
-    Logger.verbose("CategoryItemController:updateItem called");
+    Logger.verbose("ItemController:updateItem called");
     try {
       let itemId = req.params.itemId;
 
@@ -108,9 +108,7 @@ module.exports = {
       let itemData = req.body;
 
       Logger.info(itemData);
-      let updatedItem = await CategoryItem.updateOne({ itemId: itemId }).set(
-        itemData
-      );
+      let updatedItem = await Item.updateOne({ itemId: itemId }).set(itemData);
       Logger.info(updatedItem);
       if (updatedItem) {
         return res.status(200).json({
@@ -123,7 +121,7 @@ module.exports = {
       }
     } catch (err) {
       Logger.error(
-        "Error in api: CategoryItemController:updateItem, name: " +
+        "Error in api: ItemController:updateItem, name: " +
           err.name +
           ", code: " +
           err.code
@@ -135,11 +133,11 @@ module.exports = {
   },
 
   deleteItem: async function (req, res) {
-    Logger.verbose("CategoryItemController:deleteItem called");
+    Logger.verbose("ItemController:deleteItem called");
     try {
       let itemId = req.params.itemId;
 
-      let deletedItem = await CategoryItem.destroyOne({ itemId: itemId });
+      let deletedItem = await Item.destroyOne({ itemId: itemId });
       Logger.info(deletedItem);
       if (deletedItem) {
         return res.status(200).json({
@@ -152,7 +150,7 @@ module.exports = {
       }
     } catch (err) {
       Logger.error(
-        "Error in api: CategoryItemController:deleteItem, name: " +
+        "Error in api: ItemController:deleteItem, name: " +
           err.name +
           ", code: " +
           err.code

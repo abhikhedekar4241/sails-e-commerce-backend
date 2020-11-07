@@ -39,7 +39,7 @@ module.exports = async function (req, res, next) {
     );
     return res.status(403).send({
       message:
-        "Something Went Wrong,May session timeout,Please try to login again.",
+        "Something Went Wrong, May session timeout,Please try to login again.",
     });
   }
 };

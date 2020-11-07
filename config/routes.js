@@ -46,7 +46,7 @@ module.exports.routes = {
     controller: "UserController",
     action: "login",
   },
-  "POST /api/v1/users/update/:userId": {
+  "POST /api/v1/users/update": {
     controller: "UserController",
     action: "updateUser",
   },
@@ -58,7 +58,34 @@ module.exports.routes = {
     controller: "UserController",
     action: "updateCart",
   },
+  "POST /api/v1/cart/add": {
+    controller: "UserController",
+    action: "addToCart",
+  },
   //************* UserController end *************
+
+  //************* AddressController start *************
+  "POST /api/v1/address/add": {
+    controller: "AddressController",
+    action: "addAddress",
+  },
+  "GET /api/v1/address/list": {
+    controller: "AddressController",
+    action: "getAddresses",
+  },
+  "GET /api/v1/address/:addressId": {
+    controller: "AddressController",
+    action: "getAddress",
+  },
+  "PUT /api/v1/address/:addressId": {
+    controller: "AddressController",
+    action: "updateAddress",
+  },
+  "DELETE /api/v1/address/:addressId": {
+    controller: "AddressController",
+    action: "deleteAddress",
+  },
+  //************* AddressController end *************
 
   //************* MasterCategoryController start *************
   "POST /api/v1/masterCategories/add": {
@@ -79,47 +106,47 @@ module.exports.routes = {
   },
   //************* MasterCategoryController end *************
 
-  //************* ProductCategoryController start *************
+  //************* CategoryController start *************
   "POST /api/v1/categories/add": {
-    controller: "ProductCategoryController",
+    controller: "CategoryController",
     action: "addCategory",
   },
   "GET /api/v1/categories/list/:masterCategoryId": {
-    controller: "ProductCategoryController",
+    controller: "CategoryController",
     action: "getCategories",
   },
   "PUT /api/v1/categories/:categoryId": {
-    controller: "ProductCategoryController",
+    controller: "CategoryController",
     action: "updateCategory",
   },
   "DELETE /api/v1/categories/:categoryId": {
-    controller: "ProductCategoryController",
+    controller: "CategoryController",
     action: "deleteCategory",
   },
-  //************* ProductCategoryController end *************
+  //************* CategoryController end *************
 
-  //************* CategoryItemController start *************
+  //************* ItemController start *************
   "POST /api/v1/items/add": {
-    controller: "CategoryItemController",
+    controller: "ItemController",
     action: "addItem",
   },
   "GET /api/v1/items/list/:categoryId": {
-    controller: "CategoryItemController",
+    controller: "ItemController",
     action: "getItems",
   },
   "GET /api/v1/items/:itemId": {
-    controller: "CategoryItemController",
+    controller: "ItemController",
     action: "getItem",
   },
   "PUT /api/v1/items/:itemId": {
-    controller: "CategoryItemController",
+    controller: "ItemController",
     action: "updateItem",
   },
   "DELETE /api/v1/items/:itemId": {
-    controller: "CategoryItemController",
+    controller: "ItemController",
     action: "deleteItem",
   },
-  //************* CategoryItemController end *************
+  //************* ItemController end *************
 
   //************* OffersController start *************
   "GET /api/v1/offers/list": {

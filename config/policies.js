@@ -19,16 +19,24 @@ module.exports.policies = {
   // '*': true,
   UserController: {
     "*": true,
+    updateUser: ["isTokenAuth"],
     getCart: ["isTokenAuth"],
     updateCart: ["isTokenAuth"],
+    addToCart: ["isTokenAuth"],
   },
+
   CategoryItemController: {
     "*": ["isTokenAuth", "isAdmin"],
     getItems: true,
     getItem: true,
   },
+
   ProductCategoryController: {
     "*": ["isTokenAuth", "isAdmin"],
     getCategories: true,
+  },
+
+  AddressController: {
+    "*": ["isTokenAuth"],
   },
 };

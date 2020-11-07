@@ -119,10 +119,8 @@ module.exports = {
       let deletedMasterCategory = await MasterCategory.destroyOne(
         masterCategoryData
       );
-      let deleteCategories = await ProductCategory.destroy(
-        masterCategoryData
-      ).fetch();
-      let deleteItems = await CategoryItem.destroy(masterCategoryData).fetch();
+      let deleteCategories = await Category.destroy(masterCategoryData).fetch();
+      let deleteItems = await Item.destroy(masterCategoryData).fetch();
 
       Logger.info(deletedMasterCategory);
       Logger.info(deleteCategories);

@@ -39,7 +39,12 @@ module.exports = {
       columnType: "Array",
       defaultsTo: [],
     },
-    registrationToken: {
+    addresses: {
+      type: "json",
+      columnType: "Array",
+      defaultsTo: [],
+    },
+    notificationToken: {
       type: "string",
     },
     isActive: {
